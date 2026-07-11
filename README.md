@@ -3,6 +3,7 @@
 AI-powered invoice anomaly detection. Scans transactions for duplicate charges, price spikes, and unusual vendor relationships — then generates analyst assessments and clarification emails automatically.
 
 **No backend. No API key required. Open `index.html` and run.**
+**For testing you can on any aditional api**
 
 ---
 
