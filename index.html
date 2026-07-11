@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anomaly Agent — Invoice Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ── Sidebar ──────────────────────────────────────── -->
+  <nav class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="M9 12l2 2 4-4"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">Anomaly Agent</span>
+        <span class="brand-sub">Invoice Intelligence</span>
+      </div>
+    </div>
+
+    <div class="nav-section-label">Menu</div>
+    <ul class="nav-list">
+      <li class="nav-item active" data-view="dashboard">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+          <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+        </svg>
+        Dashboard
+      </li>
+      <li class="nav-item" data-view="transactions">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14,2 14,8 20,8"/>
+          <line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/>
+        </svg>
+        Transactions
+        <span class="nav-badge" id="nav-badge-transactions"></span>
+      </li>
+      <li class="nav-item" data-view="anomalies">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+          <line x1="12" y1="9" x2="12" y2="13"/>
+          <line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+        Anomalies
+        <span class="nav-badge" id="nav-badge-anomalies"></span>
+      </li>
+      <li class="nav-item" data-view="analysis">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 16v-4"/><path d="M12 8h.01"/>
+        </svg>
+        AI Analysis
+      </li>
+      <li class="nav-item" data-view="report">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        Report
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <div class="footer-dot"></div>
+      <div class="footer-copy">No API key required</div>
+    </div>
+  </nav>
+
+  <!-- ── Main ─────────────────────────────────────────── -->
+  <main class="main">
+
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1 id="topbar-title">Dashboard</h1>
+        <span id="topbar-sub">Q2 2026 · Apr – Jun · 150 transactions</span>
+      </div>
+      <div class="topbar-right">
+        <div class="period-chip">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          Apr – Jun 2026
+        </div>
+        <button class="btn-run" id="btn-run">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5,3 19,12 5,21 5,3"/>
+          </svg>
+          Run Analysis
+        </button>
+      </div>
+    </header>
+
+    <div class="content" id="content">
+
+      <!-- ── Dashboard ── -->
+      <section id="view-dashboard" class="view active">
+
+        <!-- Hero with globe -->
+        <div class="dash-hero">
+          <div class="dash-hero-left">
+            <div class="live-badge">
+              <div class="live-dot"></div>
+              Live Scanner
+            </div>
+            <h2 class="dash-hero-title">Invoice Anomaly<br>Detection</h2>
+            <p class="dash-hero-sub">
+              Scanning <strong style="-webkit-text-fill-color:inherit;color:#a5b4fc">150 transactions</strong> across Q2 2026 for duplicate charges, price spikes, and unusual vendor relationships.
+            </p>
+            <div id="dashboard-hero-cta">
+              <button class="btn-run large" onclick="document.getElementById('btn-run').click()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="5,3 19,12 5,21 5,3"/>
+                </svg>
+                Run Analysis
+              </button>
+            </div>
+          </div>
+          <div class="dash-hero-right">
+            <canvas id="globe-canvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Stats row (hidden until analysis) -->
+        <div class="stats-row" id="stats-row" style="display:none"></div>
+
+        <!-- Spend chart (hidden until analysis) -->
+        <div class="chart-row card" id="spend-chart-card" style="display:none">
+          <div class="card-header">
+            <h3 class="card-title">Weekly Spend — Q2 2026</h3>
+            <span style="font-size:11px;color:var(--text-3)">Red markers = anomaly weeks</span>
+          </div>
+          <div style="padding:16px 20px;">
+            <canvas id="spend-chart-canvas" height="140"></canvas>
+          </div>
+        </div>
+
+        <!-- Breakdown + recent flags (hidden until analysis) -->
+        <div class="dashboard-grid" id="dashboard-grid" style="display:none">
+          <div class="card" id="breakdown-card">
+            <div class="card-header">
+              <h3 class="card-title">Anomalies by Type</h3>
+            </div>
+            <div id="breakdown-body" class="breakdown-body"></div>
+          </div>
+          <div class="card" id="recent-card">
+            <div class="card-header">
+              <h3 class="card-title">Top Flags</h3>
+              <a class="card-link" data-view="anomalies">View all →</a>
+            </div>
+            <div id="recent-body"></div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ── Transactions ── -->
+      <section id="view-transactions" class="view">
+        <div class="toolbar">
+          <div class="search-wrap">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input class="search-input" id="txn-search" type="text" placeholder="Search vendor, department, approver…" />
+          </div>
+          <select class="filter-select" id="txn-filter">
+            <option value="all">All transactions</option>
+            <option value="flagged">Flagged only</option>
+            <option value="clean">Clean only</option>
+          </select>
+        </div>
+        <div class="card table-card">
+          <div class="table-wrap">
+            <table class="txn-table" id="txn-table">
+              <thead>
+                <tr>
+                  <th>ID</th><th>Date</th><th>Vendor</th><th>Category</th>
+                  <th class="text-right">Amount</th><th>Department</th><th>Approved By</th><th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="txn-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Anomalies ── -->
+      <section id="view-anomalies" class="view">
+        <div class="filter-tabs" id="anomaly-tabs">
+          <button class="tab active" data-severity="all">All</button>
+          <button class="tab" data-severity="high">High</button>
+          <button class="tab" data-severity="medium">Medium</button>
+          <button class="tab" data-severity="low">Low</button>
+        </div>
+        <div class="anomaly-list" id="anomaly-list">
+          <div class="empty-state small">
+            <p>Run analysis to detect anomalies.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── AI Analysis ── -->
+      <section id="view-analysis" class="view">
+        <div class="analysis-intro card">
+          <div class="analysis-intro-inner">
+            <div class="analysis-icon-wrap">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/>
+              </svg>
+            </div>
+            <div>
+              <strong style="color:var(--text)">Simulated AI Accounting Analyst</strong> — Each flagged transaction is assessed as if reviewed by a senior analyst. Assessments reference actual transaction data, vendor history, and contextual signals. In production this would call Claude via the Anthropic API.
+            </div>
+          </div>
+        </div>
+        <div id="analysis-list" class="analysis-list">
+          <div class="empty-state small">
+            <p>Run analysis to generate AI assessments.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Report ── -->
+      <section id="view-report" class="view">
+        <div class="report-toolbar">
+          <button class="btn-secondary" id="btn-copy-report">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            Copy Markdown
+          </button>
+          <button class="btn-secondary" id="btn-download-report">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7,10 12,15 17,10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Download .md
+          </button>
+        </div>
+        <div class="card report-card">
+          <div class="report-body" id="report-body">
+            <div class="empty-state small">
+              <p>Run analysis first to generate the report.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ── Loading overlay ── -->
+  <div class="loading-overlay" id="loading-overlay">
+    <div class="loading-card">
+      <div class="loading-spinner"></div>
+      <div class="loading-status" id="loading-status">Initializing…</div>
+      <div class="loading-steps" id="loading-steps"></div>
+      <div class="loading-track">
+        <div class="loading-bar" id="loading-bar" style="width:0%"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/analyzer.js"></script>
+  <script src="js/agent.js"></script>
+  <script src="js/globe.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
